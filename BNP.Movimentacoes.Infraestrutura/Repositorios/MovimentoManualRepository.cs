@@ -19,6 +19,9 @@ namespace BNP.Movimentacoes.Infraestrutura.Repositorios
             return await _contexto.MovimentosManuais
                 .Include(m => m.Produto)
                 .AsNoTracking()
+                .OrderBy(m => m.DatAno)         // 1. Ordena por Ano
+                .ThenBy(m => m.DatMes)          // 2. Depois por Mês
+                .ThenBy(m => m.NumLancamento)   // 3. E finalmente pelo Nº do Lançamento
                 .ToListAsync();
         }
 

@@ -10,11 +10,11 @@
             <div class="row">
                 <div class="col-md-3">
                     <label for="mes" class="form-label">Mês</label>
-                    <input type="number" class="form-control" id="mes" required disabled>
+                    <input type="number" class="form-control" id="mes" min="1" max="12" required disabled>
                 </div>
                 <div class="col-md-3">
                     <label for="ano" class="form-label">Ano</label>
-                    <input type="number" class="form-control" id="ano" required disabled>
+                    <input type="number" class="form-control" id="ano" min="2000" max="2025" required disabled>
                 </div>
                 <div class="col-md-3">
                     <label for="produto" class="form-label">Produto</label>
@@ -28,7 +28,7 @@
             <div class="row mt-3">
                 <div class="col-md-3">
                     <label for="valor" class="form-label">Valor</label>
-                    <input type="text" class="form-control" id="valor" required disabled>
+                    <input type="text" class="form-control" id="valor" min="0.01" required disabled>
                 </div>
                 <div class="col-md-9">
                     <label for="descricao" class="form-label">Descrição</label>
@@ -169,7 +169,22 @@
                     habilitarCampos(false);
                     await carregarMovimentos();
                 } else {
-                    alert('Erro ao incluir movimento.');
+                        let errorMsg = `Erro ao incluir movimento. (Status: ${response.status})`;
+                    try {
+                        const errorData = await response.json();
+                        // Se a API retornou um objeto de erro com detalhes (padrão do ASP.NET Core)
+                        if (errorData && errorData.errors) {
+                            const errorDetails = Object.values(errorData.errors).flat().join('\n');
+                            errorMsg = `Ocorreram os seguintes erros de validação:\n\n${errorDetails}`;
+                        } else if (errorData.title) {
+                            errorMsg = errorData.title;
+                        }
+                    } catch (e) {
+                        // O corpo da resposta não era um JSON válido, o que pode acontecer em erros 500.
+                        // Mantemos a mensagem de erro genérica.
+                        console.error("Não foi possível processar a resposta de erro como JSON.", e);
+                    }
+                    alert(errorMsg);
                 }
             });
 
