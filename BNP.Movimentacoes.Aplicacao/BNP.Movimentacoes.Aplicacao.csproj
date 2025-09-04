@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BNP.Movimentacoes.Dominio\BNP.Movimentacoes.Dominio.csproj" />
+  </ItemGroup>
+
 </Project>
