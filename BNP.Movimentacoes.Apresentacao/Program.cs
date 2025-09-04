@@ -3,23 +3,28 @@ using BNP.Movimentacoes.Aplicacao.Services;
 using BNP.Movimentacoes.Infraestrutura.Contexto;
 using BNP.Movimentacoes.Infraestrutura.Repositorios;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Adiciona o suporte ao Swagger para documentar nossa API
+// Adiciona o suporte ao Swagger para documentar a API
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
+});
 
 // Configura o DbContext do Entity Framework para usar o SQL Server LocalDB
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<MovimentacoesDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Registra nossas interfaces e suas implementações concretas.
-// Usamos AddScoped para que a instância desses serviços dure por uma requisição HTTP.
+// Registra interfaces - AddScoped para que a instância dure por uma requisição HTTP.
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IMovimentoManualRepository, MovimentoManualRepository>();
 builder.Services.AddScoped<IMovimentoManualService, MovimentoManualService>();
@@ -27,22 +32,30 @@ builder.Services.AddScoped<IMovimentoManualService, MovimentoManualService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "BNP Movimentacoes API V1");
+        c.RoutePrefix = "swagger";
+    });
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-
-    app.UseSwagger();
-    app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",

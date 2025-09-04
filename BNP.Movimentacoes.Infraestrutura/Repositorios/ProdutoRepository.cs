@@ -26,6 +26,7 @@ namespace BNP.Movimentacoes.Infraestrutura.Repositorios
         public async Task<List<ProdutoCosif>> ObterCosifPorProdutoAsync(string codProduto)
         {
             return await _contexto.ProdutosCosif
+                .Include(pc => pc.Produto)
                 .AsNoTracking()
                 .Where(c => c.CodProduto == codProduto)
                 .ToListAsync();

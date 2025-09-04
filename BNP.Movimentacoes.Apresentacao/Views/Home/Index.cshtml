@@ -113,6 +113,7 @@
                 const response = await fetch('/api/movimentos/produtos');
                 const data = await response.json();
                 produtoSelect.innerHTML = '<option value="">-- Selecione --</option>';
+                cosifSelect.innerHTML = '<option value="">-- Selecione o Produto 1º --</option>';
                 data.forEach(prod => {
                     produtoSelect.innerHTML += `<option value="${prod.codProduto}">${prod.desProduto}</option>`;
                 });
