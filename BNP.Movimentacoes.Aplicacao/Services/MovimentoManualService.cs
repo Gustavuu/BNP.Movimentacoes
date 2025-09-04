@@ -4,7 +4,7 @@ using BNP.Movimentacoes.Dominio.Entidades;
 
 namespace BNP.Movimentacoes.Aplicacao.Services
 {
-    public class MovimentoManualService
+    public class MovimentoManualService : IMovimentoManualService
     {
         private readonly IProdutoRepository _produtoRepository;
         private readonly IMovimentoManualRepository _movimentoManualRepository;
