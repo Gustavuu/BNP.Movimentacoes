@@ -2,9 +2,9 @@
 {
     public class MovimentoManual
     {
-        public required decimal DatMes { get; set; }
-        public required decimal DatAno { get; set; }
-        public required decimal NumLancamento { get; set; }
+        public required int DatMes { get; set; }
+        public required int DatAno { get; set; }
+        public required long NumLancamento { get; set; }
         public required string CodProduto { get; set; }
         public required string CodCosif { get; set; }
         public required string DesDescricao { get; set; }

@@ -48,7 +48,7 @@ namespace BNP.Movimentacoes.Infraestrutura.Contexto
             modelBuilder.Entity<MovimentoManual>(entity =>
             {
                 entity.ToTable("MOVIMENTO_MANUAL");
-                entity.HasKey(mm => new { mm.DatMes, mm.DatAno, mm.NumLancamento }); // Chave primária composta
+                entity.HasKey(mm => new { mm.DatMes, mm.DatAno, mm.NumLancamento });
                 entity.Property(mm => mm.DatMes).HasColumnName("DAT_MES").HasColumnType("numeric(2, 0)").IsRequired();
                 entity.Property(mm => mm.DatAno).HasColumnName("DAT_ANO").HasColumnType("numeric(4, 0)").IsRequired();
                 entity.Property(mm => mm.NumLancamento).HasColumnName("NUM_LANCAMENTO").HasColumnType("numeric(18, 0)").IsRequired();
@@ -59,15 +59,37 @@ namespace BNP.Movimentacoes.Infraestrutura.Contexto
                 entity.Property(mm => mm.CodUsuario).HasColumnName("COD_USUARIO").HasColumnType("varchar(15)").IsRequired();
                 entity.Property(mm => mm.ValValor).HasColumnName("VAL_VALOR").HasColumnType("numeric(18, 2)").IsRequired();
 
-                // Configuração das chaves estrangeiras
+                // Configuração das chaves estrangeiras com a regra de deleção explícita
                 entity.HasOne(mm => mm.Produto)
                       .WithMany()
-                      .HasForeignKey(mm => mm.CodProduto);
+                      .HasForeignKey(mm => mm.CodProduto)
+                      .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(mm => mm.ProdutoCosif)
                       .WithMany()
-                      .HasForeignKey(mm => new { mm.CodProduto, mm.CodCosif });
+                      .HasForeignKey(mm => new { mm.CodProduto, mm.CodCosif })
+                      .OnDelete(DeleteBehavior.Restrict);
             });
+
+            // --- ADICIONANDO DADOS INICIAIS (DATA SEEDING) ---
+
+            modelBuilder.Entity<Produto>().HasData(
+                new Produto { CodProduto = "0001", DesProduto = "Tesouro Selic", StaStatus = "A" },
+                new Produto { CodProduto = "0002", DesProduto = "CDB BNP", StaStatus = "A" },
+                new Produto { CodProduto = "0003", DesProduto = "LCI BNP", StaStatus = "I" } // Exemplo de um inativo
+            );
+
+            modelBuilder.Entity<ProdutoCosif>().HasData(
+                // Cosifs para o Produto 0001
+                new ProdutoCosif { CodProduto = "0001", CodCosif = "11111111111", CodClassificacao = "RENDA", StaStatus = "A" },
+                new ProdutoCosif { CodProduto = "0001", CodCosif = "22222222222", CodClassificacao = "RENDA", StaStatus = "A" },
+
+                // Cosifs para o Produto 0002
+                new ProdutoCosif { CodProduto = "0002", CodCosif = "33333333333", CodClassificacao = "PRIV", StaStatus = "A" },
+
+                // Cosifs para o Produto 0003 (inativo)
+                new ProdutoCosif { CodProduto = "0003", CodCosif = "44444444444", CodClassificacao = "PRIV", StaStatus = "I" }
+            );
         }
     }
 }

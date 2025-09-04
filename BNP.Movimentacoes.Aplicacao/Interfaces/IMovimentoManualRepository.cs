@@ -5,7 +5,7 @@ namespace BNP.Movimentacoes.Aplicacao.Interfaces
     public interface IMovimentoManualRepository
     {
         Task<List<MovimentoManual>> ObterTodosMovimentosManuaisAsync();
-        Task<decimal> ObterUltimoLancamentoNoMesAnoAsync(decimal mes, decimal ano);
+        Task<long> ObterUltimoLancamentoNoMesAnoAsync(int mes, int ano);
         Task AdicionarMovimentoManualAsync(MovimentoManual movimento);
     }
 }

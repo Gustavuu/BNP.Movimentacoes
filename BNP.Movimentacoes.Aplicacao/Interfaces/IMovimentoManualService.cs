@@ -8,6 +8,6 @@ namespace BNP.Movimentacoes.Aplicacao.Interfaces
         Task<List<MovimentoManualDto>> ObterTodosMovimentosManuaisAsync();
         Task<List<Produto>> ObterTodosProdutosAsync();
         Task<List<ProdutoCosif>> ObterCosifPorProdutoAsync(string codProduto);
-        Task CriarMovimentoManualAsync(MovimentoManual novoMovimento);
+        Task<MovimentoManual> CriarMovimentoManualAsync(CriarMovimentoDto novoMovimento);
     }
 }

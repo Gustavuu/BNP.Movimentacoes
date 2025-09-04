@@ -17,8 +17,21 @@ namespace BNP.Movimentacoes.Aplicacao.Services
 
         public async Task<List<MovimentoManualDto>> ObterTodosMovimentosManuaisAsync()
         {
-            // A implementação virá depois, na camada de Infraestrutura
-            throw new NotImplementedException();
+            var movimentos = await _movimentoManualRepository.ObterTodosMovimentosManuaisAsync();
+
+            // Mapeia a lista de Entidades para uma lista de DTOs
+            var movimentosDto = movimentos.Select(m => new MovimentoManualDto
+            {
+                Mes = m.DatMes,
+                Ano = m.DatAno,
+                CodProduto = m.CodProduto,
+                NomeProduto = m.Produto?.DesProduto,
+                NumLancamento = m.NumLancamento,
+                Descricao = m.DesDescricao,
+                Valor = m.ValValor
+            }).ToList();
+
+            return movimentosDto;
         }
 
         public async Task<List<Produto>> ObterTodosProdutosAsync()
@@ -31,17 +44,32 @@ namespace BNP.Movimentacoes.Aplicacao.Services
             return await _produtoRepository.ObterCosifPorProdutoAsync(codProduto);
         }
 
-        public async Task CriarMovimentoManualAsync(MovimentoManual novoMovimento)
+        public async Task<MovimentoManual> CriarMovimentoManualAsync(CriarMovimentoDto dto)
         {
-            // Lógica para gerar o próximo número de lançamento
+            // 1. Mapeia o DTO para a Entidade de Domínio
+            var novoMovimento = new MovimentoManual
+            {
+                DatMes = dto.DatMes,
+                DatAno = dto.DatAno,
+                CodProduto = dto.CodProduto,
+                CodCosif = dto.CodCosif,
+                ValValor = dto.ValValor,
+                DesDescricao = dto.DesDescricao,
+                // Valores gerados pelo servidor:
+                DatMovimento = DateTime.Now,
+                CodUsuario = "TESTE",
+                NumLancamento = 0 // Placeholder, será calculado a seguir
+            };
+
+            // 2. Lógica de negócio para gerar o próximo número de lançamento
             var ultimoLancamento = await _movimentoManualRepository.ObterUltimoLancamentoNoMesAnoAsync(novoMovimento.DatMes, novoMovimento.DatAno);
             novoMovimento.NumLancamento = ultimoLancamento + 1;
 
-            // Preencher dados fixos conforme o requisito
-            novoMovimento.DatMovimento = DateTime.Now;
-            novoMovimento.CodUsuario = "TESTE";
-
+            // 3. Adiciona o movimento completo ao repositório
             await _movimentoManualRepository.AdicionarMovimentoManualAsync(novoMovimento);
+
+            // Retorna a entidade completa criada
+            return novoMovimento;
         }
     }
 }
