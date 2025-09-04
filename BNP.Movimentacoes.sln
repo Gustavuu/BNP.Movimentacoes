@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BNP.Movimentacoes.Apresentacao", "BNP.Movimentacoes.Apresentacao\BNP.Movimentacoes.Apresentacao.csproj", "{FC1409E1-DFF1-44DE-A6D6-C4ECE9255B26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BNP.Movimentacoes.Aplicacao", "BNP.Movimentacoes.Aplicacao\BNP.Movimentacoes.Aplicacao.csproj", "{ED545AD7-4C76-4E28-9A03-3EB0CCFA57FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BNP.Movimentacoes.Dominio", "BNP.Movimentacoes.Dominio\BNP.Movimentacoes.Dominio.csproj", "{D25B44BB-24AD-410E-A21C-F696276806DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BNP.Movimentacoes.Infraestrutura", "BNP.Movimentacoes.Infraestrutura\BNP.Movimentacoes.Infraestrutura.csproj", "{B81CD44E-6CCC-4FD6-85BB-3AB614EDB1D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BNP.Movimentacoes.Testes", "BNP.Movimentacoes.Testes\BNP.Movimentacoes.Testes.csproj", "{FA26EBD6-B625-4D89-BE15-6BBDECBE5B0D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC1409E1-DFF1-44DE-A6D6-C4ECE9255B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC1409E1-DFF1-44DE-A6D6-C4ECE9255B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC1409E1-DFF1-44DE-A6D6-C4ECE9255B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC1409E1-DFF1-44DE-A6D6-C4ECE9255B26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED545AD7-4C76-4E28-9A03-3EB0CCFA57FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED545AD7-4C76-4E28-9A03-3EB0CCFA57FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED545AD7-4C76-4E28-9A03-3EB0CCFA57FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED545AD7-4C76-4E28-9A03-3EB0CCFA57FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D25B44BB-24AD-410E-A21C-F696276806DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D25B44BB-24AD-410E-A21C-F696276806DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D25B44BB-24AD-410E-A21C-F696276806DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D25B44BB-24AD-410E-A21C-F696276806DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B81CD44E-6CCC-4FD6-85BB-3AB614EDB1D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B81CD44E-6CCC-4FD6-85BB-3AB614EDB1D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B81CD44E-6CCC-4FD6-85BB-3AB614EDB1D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B81CD44E-6CCC-4FD6-85BB-3AB614EDB1D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA26EBD6-B625-4D89-BE15-6BBDECBE5B0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA26EBD6-B625-4D89-BE15-6BBDECBE5B0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA26EBD6-B625-4D89-BE15-6BBDECBE5B0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA26EBD6-B625-4D89-BE15-6BBDECBE5B0D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {078CA114-A6AF-4A5B-9604-DA685F50500A}
+	EndGlobalSection
+EndGlobal
